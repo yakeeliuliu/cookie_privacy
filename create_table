@@ -13,7 +13,7 @@ CREATE TABLE `cookies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #kali
-REATE TABLE `cookies` (
+CREATE TABLE `cookies` (
   `id` int(11) NOT NULL AUTO_INCREMENT, 
   `domain` varchar(255) NOT NULL,
   `is_secure` varchar(10) NOT NULL,
