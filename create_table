@@ -1,0 +1,12 @@
+CREATE TABLE `cookies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT, 
+  `domain` varchar(255) NOT NULL,
+  `expiry` datetime NOT NULL,
+  `is_http_only` varchar(10),
+  `name` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `is_secure` varchar(10) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
