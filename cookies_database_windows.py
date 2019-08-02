@@ -84,27 +84,3 @@ cookies()
 connect_db()
 
 
-
-# In[ ]:
-
-
-get_ipython().system('pip install MySQLdb')
-
-
-# In[ ]:
-
-
-pip install MySQL-python
-
-
-# In[ ]:
-
-
-get_ipython().system('pip install mysql-connector-python')
-
-
-# In[ ]:
-
-
-pip install pymysql
-
