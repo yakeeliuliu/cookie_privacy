@@ -4,21 +4,23 @@ from selenium.webdriver.common.keys import Keys
 import pickle
 import MySQLdb
 import pymysql
+import json
 
 
 #open a chrome and locate the search bar and put search keywords
 def test_search_in_python_org():
     driver = webdriver.Chrome()
-    driver.get("http://www.python.org")
+    driver.get("https://91mjw.com")
     #assert("Python", driver.title)
     elem = driver.find_element_by_name("q")
     elem.send_keys("pycon")
     elem.send_keys(Keys.RETURN)
     assert "No results found." not in driver.page_source
+
 #get cookies and use pickle to dump and save the cookies in a pkl file
 def cookies():
     driver = webdriver.Chrome()
-    driver.get("http://www.python.org")
+    driver.get("https://91mjw.com")
     cookies = driver.get_cookies()
     print(cookies)
     pickle.dump( cookies , open("cookies.pkl","wb"))
@@ -28,7 +30,7 @@ def cookies():
         driver.add_cookie(cookie)
     print(cookie)
 
-def connect_db():# cannot save pkl file to database
+def connect_db():
     coon = pymysql.connect(
     host = '127.0.0.1',user = 'root',passwd = '',
     port = 3306,db = 'testdb',charset = 'utf8')
@@ -47,15 +49,24 @@ def connect_db():# cannot save pkl file to database
     #coon.commit()
     #insert_pkl_to_database():
     cookies_pkl = pickle.load(open("cookies.pkl", "rb"))
-    #for cookie in cookies_pkl:
-    #    sql = "INSERT INTO cookies(domain,expiry,is_http_only,name,path,is_secure,value) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-    #    val = list(cookie)
-    #    print(cookie)
-    #    cur.execute(sql, val)
+   
     for cookie in cookies_pkl:
-        print(cookie)
-        cur.execute("""INSERT INTO cookies VALUES ()""", (cookie, ))
-        coon.commit()
+        val = []
+        for key,value in cookie.items():
+            print("key is : " + key)
+            print("value is :" + str(value) + "\n")
+            val.append(str(value))
+        print(val)
+        if len(val) == 7:
+            sql = "INSERT INTO cookies(domain,expiry,is_http_only,name,path,is_secure,value) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+            cur.execute(sql,val)
+            coon.commit()
+        else:
+            print("There is some atribute missing ：" + str(val) + "\n")
+    #for cookie in cookies_pkl:
+    #    print(cookie)
+    #    cur.execute("""INSERT INTO cookies VALUES ()""", (cookie, ))
+    print("$$$$$$$$$$$$$ The SELECT QUERY RESULT $$$$$$$$$$$$$$$$$$\n")
     cur.execute("select * from cookies")  #查询数据
     res = cur.fetchall()    #获取结果
     print(res)
@@ -64,5 +75,6 @@ def connect_db():# cannot save pkl file to database
 
 
 #test_search_in_python_org()
-#cookies()
+cookies()
 connect_db()
+
