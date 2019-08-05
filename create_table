@@ -19,7 +19,7 @@ CREATE TABLE `cookies` (
   `domain` varchar(255) NOT NULL,
   `is_secure` varchar(10) NOT NULL,
   `value` varchar(255) NOT NULL,
-  `is_3rd_party` varchar(10) NOT NULL, 
+  `is_3rd_party` varchar(10) NOT NULL DEFAULT 'TRUE', 
   `expiry` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL,
   `is_http_only` varchar(10),
